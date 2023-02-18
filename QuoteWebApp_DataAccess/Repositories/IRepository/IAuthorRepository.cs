@@ -10,9 +10,9 @@ namespace QuoteWebApp_DataAccess.Repositories.IRepository
     public interface IAuthorRepository
     {
         Task<Author> GetAuthorAsync(int id);
-        void AddAuthorAsync(Author author);
-        void DeleteAuthorAsync(Author author);
-        void UpdateAuthorAsync(Author author);
+        Task AddAuthorAsync(Author author);
+        Task DeleteAuthorAsync(Author author);
+        Task UpdateAuthorAsync(Author author);
         IEnumerable<Author> ListAuthors();
     }
 }

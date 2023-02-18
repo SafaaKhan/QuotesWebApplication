@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using QuoteWebApp_DataAccess.Repositories.IRepository;
 using QuoteWebApp_Models.Models;
@@ -21,6 +22,7 @@ namespace QuotesWeb_Application.Controllers
             return View(authors);
         }
 
+        [Authorize]
         public IActionResult AddAuthor()
         {
             return View();
@@ -28,18 +30,18 @@ namespace QuotesWeb_Application.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult AddAuthor(Author author)
+        public async Task<IActionResult> AddAuthor(Author author)
         {
             if (ModelState.IsValid)
             {
-                _authorRepo.AddAuthorAsync(author);
+                await _authorRepo.AddAuthorAsync(author);
                 return RedirectToAction(nameof(ListAuthors));
             }
             return View(author);  
         }
 
-       
 
+        [Authorize]
         public async Task<IActionResult> UpdateAuthor(int id)
         {
             if (id == 0 )
@@ -57,17 +59,18 @@ namespace QuotesWeb_Application.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult UpdateAuthor(Author author)
+        public async Task<IActionResult> UpdateAuthor(Author author)
         {
             if (ModelState.IsValid)
             {
                 
-                _authorRepo.UpdateAuthorAsync(author);
+                await _authorRepo.UpdateAuthorAsync(author);
                 return RedirectToAction(nameof(ListAuthors));
             }
             return View(author);
         }
 
+        [Authorize]
         public async Task<IActionResult> DeleteAuthor(int id)
         {
             if (id == 0)
@@ -85,9 +88,9 @@ namespace QuotesWeb_Application.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult DeleteAuthor(Author author)
+        public async Task<IActionResult> DeleteAuthor(Author author)
         {
-            _authorRepo.DeleteAuthorAsync(author);
+            await _authorRepo.DeleteAuthorAsync(author);
             return RedirectToAction(nameof(ListAuthors));
         }
 

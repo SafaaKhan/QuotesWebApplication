@@ -9,11 +9,13 @@ namespace QuoteWebApp_DataAccess.Repositories.IRepository
 {
     public interface IQuoteRepository
     {
+        Task<Quote> GetRandomQuoteFROMAPI();
+        Task<Quote> GetQuoteByIdAsync(int id);
         Quote GetRandomQuote();
         Quote GetQuoteByAuthor(int autherId);
-        void AddQuote(Quote quote);
-        void DeleteQuote(Quote quote);
-        void UpdateQuote(Quote quote);
+        Task AddQuoteAsync(Quote quote);
+        Task DeleteQuoteAsync(Quote quote);
+        Task UpdateQuoteAsync(Quote quote);
         IEnumerable<Quote> ListQuotes(int autherId);
     }
 }

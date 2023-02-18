@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using QuotesWeb_Application.Controllers;
 using QuoteWebApp_DataAccess.Data;
 using QuoteWebApp_DataAccess.Repositories;
 using QuoteWebApp_DataAccess.Repositories.IRepository;
@@ -16,6 +17,10 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddScoped<IQuoteRepository, QuoteRepository>();
 builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
+
+builder.Services.AddHttpClient<IQuoteRepository,QuoteRepository>(x => x.BaseAddress =
+  new Uri(builder.Configuration["ServiceURLs:QuoteAPIUrl"]));
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
@@ -36,6 +41,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

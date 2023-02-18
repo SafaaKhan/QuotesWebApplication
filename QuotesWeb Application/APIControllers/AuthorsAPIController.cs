@@ -10,17 +10,17 @@ namespace QuotesWeb_Application.APIControllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthorsController : ControllerBase
+    public class AuthorsAPIController : ControllerBase
     {
         private readonly IAuthorRepository _authorRepo;
 
-        public AuthorsController(IAuthorRepository authorRepo)
+        public AuthorsAPIController(IAuthorRepository authorRepo)
         {
             _authorRepo = authorRepo;
         }
 
 
-        // GET: api/authors/listAuthors
+        // GET: api/authorsAPI/listAuthors
         [HttpGet("listAuthors")]
         public IActionResult ListAuthors(int autherId=0)
         {
@@ -28,35 +28,35 @@ namespace QuotesWeb_Application.APIControllers
         }
 
 
-        // PUT: api/authors/updateAuthor
+        // PUT: api/authorsAPI/updateAuthor
         [HttpPut("updateAuthor")]
-        public IActionResult UpdateAuthor(UpdateAuthorDto author)
+        public async Task<IActionResult> UpdateAuthor(UpdateAuthorDto author)
         {
             var newAuth = new Author
             {
                 Id=author.Id,
                 Name = author.Name
             };
-           _authorRepo.UpdateAuthorAsync(newAuth);
+           await _authorRepo.UpdateAuthorAsync(newAuth);
            return Ok("Auther has been updated");
 
         }
 
 
-        // POST: api/authors/addAuthor
+        // POST: api/authorsAPI/addAuthor
         [HttpPost("addAuthor")]
-        public ActionResult<Author> AddAuthor(AddAuthorDto author)
+        public async Task<ActionResult> AddAuthor(AddAuthorDto author)
         {
             var newAuth = new Author
             {
                 Name = author.Name
             };
-            _authorRepo.AddAuthorAsync(newAuth);
+            await _authorRepo.AddAuthorAsync(newAuth);
 
             return Ok("Auther has been added");
         }
 
-        // DELETE:  api/authors/deleteAuthor/id
+        // DELETE:  api/authorsAPI/deleteAuthor/id
         [HttpDelete("deleteAuthor/{id}")]
         public async Task<IActionResult> DeleteAuthor(int id)
         {
@@ -66,7 +66,7 @@ namespace QuotesWeb_Application.APIControllers
                 {
                     return NotFound("Author was not found");
                 }
-                _authorRepo.DeleteAuthorAsync(author);
+                await _authorRepo.DeleteAuthorAsync(author);
                 return Ok("Auther has been deleted");  
         }
 

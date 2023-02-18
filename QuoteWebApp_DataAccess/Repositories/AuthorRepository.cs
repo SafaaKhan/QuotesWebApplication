@@ -19,13 +19,13 @@ namespace QuoteWebApp_DataAccess.Repositories
             _db = db;
         }
 
-        public async void AddAuthorAsync(Author author)
+        public async Task AddAuthorAsync(Author author)
         {
             _db.Authors.Add( author );
             await _db.SaveChangesAsync();
         }
 
-        public async void DeleteAuthorAsync(Author author)
+        public async Task DeleteAuthorAsync(Author author)
         {
             _db.Authors.Remove(author);
             await _db.SaveChangesAsync();
@@ -41,7 +41,7 @@ namespace QuoteWebApp_DataAccess.Repositories
              return _db.Authors;
         }
 
-        public async void UpdateAuthorAsync(Author author)
+        public async Task UpdateAuthorAsync(Author author)
         {
             var authorDB=await GetAuthorAsync(author.Id);
             authorDB.Name= author.Name;
