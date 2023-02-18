@@ -40,14 +40,29 @@ namespace QuotesWeb_Application.APIControllers
         [HttpGet("getQuoteByAuthor")]
         public IActionResult GetQuoteByAuthor(int id)//authorId
         {
-            return Ok(_quoteRepo.GetQuoteByAuthor(id)); 
+            try
+            {
+                return Ok(_quoteRepo.GetQuoteByAuthor(id));
+            }
+            catch
+            {
+                return BadRequest("Something error happened");
+            }
         }
 
         // GET: api/quotesAPI/listQuotes
         [HttpGet("listQuotes")]
         public IActionResult ListQuotes(int authorId)
         {
-           return Ok(_quoteRepo.ListQuotes(authorId));
+            try
+            {
+                return Ok(_quoteRepo.ListQuotes(authorId));
+
+            }
+            catch
+            {
+                return BadRequest("Something error happened");
+            }
         }
 
 
@@ -57,41 +72,65 @@ namespace QuotesWeb_Application.APIControllers
         [HttpPut("updateQuote")]
         public async Task<IActionResult> UpdateQuote( UpdateQuoteDto quote)
         {
-            var newQuote = new Quote
+            try
             {
-                Id= quote.Id,
-                Text = quote.Text,
-                AuthorId = quote.AuthorId
-            };
-            await _quoteRepo.UpdateQuoteAsync(newQuote);
-            return Ok("Quote has been updated");
+                var newQuote = new Quote
+                {
+                    Id = quote.Id,
+                    Text = quote.Text,
+                    AuthorId = quote.AuthorId
+                };
+                await _quoteRepo.UpdateQuoteAsync(newQuote);
+                return Ok("Quote has been updated");
+            }
+            catch
+            {
+                return BadRequest("Something error happened");
+            }
+           
         }
 
         // POST: api/quotesAPI/addQuote
         [HttpPost("addQuote")]
         public async Task<ActionResult> AddQuote(AddQuoteDto quote)
         {
-            var newQuote = new Quote
+            try
             {
-                Text= quote.Text,
-                AuthorId= quote.AuthorId
-            };
-           await _quoteRepo.AddQuoteAsync(newQuote);
+                var newQuote = new Quote
+                {
+                    Text = quote.Text,
+                    AuthorId = quote.AuthorId
+                };
+                await _quoteRepo.AddQuoteAsync(newQuote);
 
-            return Ok("Quote has been added");
+                return Ok("Quote has been added");
+            }
+            catch
+            {
+                return BadRequest("Something error happened");
+            }
+            
         }
 
         // DELETE: api/quotesAPI/deleteQuote
         [HttpDelete("deleteQuote/{id}")]
         public async Task<IActionResult> DeleteQuote(int id)
         {
-            var quote = await _quoteRepo.GetQuoteByIdAsync(id);
-            if (quote == null)
+            try
             {
-                return NotFound("Quote was not found");
+                var quote = await _quoteRepo.GetQuoteByIdAsync(id);
+                if (quote == null)
+                {
+                    return NotFound("Quote was not found");
+                }
+                await _quoteRepo.DeleteQuoteAsync(quote);
+                return Ok("Quote has been deleted");
             }
-            await _quoteRepo.DeleteQuoteAsync(quote);
-            return Ok("Quote has been deleted");
+            catch
+            {
+                return BadRequest("Something error happened");
+            }
+           
         }
 
     }

@@ -24,7 +24,14 @@ namespace QuotesWeb_Application.APIControllers
         [HttpGet("listAuthors")]
         public IActionResult ListAuthors(int autherId=0)
         {
-            return  Ok(_authorRepo.ListAuthors());
+            try
+            {
+                return Ok(_authorRepo.ListAuthors());
+            }
+            catch
+            {
+                return BadRequest("Something error happened");
+            }
         }
 
 
@@ -32,13 +39,22 @@ namespace QuotesWeb_Application.APIControllers
         [HttpPut("updateAuthor")]
         public async Task<IActionResult> UpdateAuthor(UpdateAuthorDto author)
         {
-            var newAuth = new Author
+            try
             {
-                Id=author.Id,
-                Name = author.Name
-            };
-           await _authorRepo.UpdateAuthorAsync(newAuth);
-           return Ok("Auther has been updated");
+                var newAuth = new Author
+                {
+                    Id = author.Id,
+                    Name = author.Name
+                };
+                await _authorRepo.UpdateAuthorAsync(newAuth);
+                return Ok("Auther has been updated");
+
+            }
+            catch
+            {
+                return BadRequest("Something error happened");
+            }
+           
 
         }
 
@@ -47,27 +63,45 @@ namespace QuotesWeb_Application.APIControllers
         [HttpPost("addAuthor")]
         public async Task<ActionResult> AddAuthor(AddAuthorDto author)
         {
-            var newAuth = new Author
+            try
             {
-                Name = author.Name
-            };
-            await _authorRepo.AddAuthorAsync(newAuth);
+                var newAuth = new Author
+                {
+                    Name = author.Name
+                };
+                await _authorRepo.AddAuthorAsync(newAuth);
 
-            return Ok("Auther has been added");
+                return Ok("Auther has been added");
+
+            }
+            catch
+            {
+                return BadRequest("Something error happened");
+            }
+            
         }
 
         // DELETE:  api/authorsAPI/deleteAuthor/id
         [HttpDelete("deleteAuthor/{id}")]
         public async Task<IActionResult> DeleteAuthor(int id)
         {
-           
+            try
+            {
                 var author = await _authorRepo.GetAuthorAsync(id);
                 if (author == null)
                 {
                     return NotFound("Author was not found");
                 }
                 await _authorRepo.DeleteAuthorAsync(author);
-                return Ok("Auther has been deleted");  
+                return Ok("Auther has been deleted");
+
+            }
+            catch
+            {
+                return BadRequest("Something error happened");
+            }
+
+           
         }
 
        

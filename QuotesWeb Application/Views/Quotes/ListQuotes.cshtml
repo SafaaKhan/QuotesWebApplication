@@ -8,16 +8,14 @@
 
 <div class="row">
     <div class="col-md-4">
-<form asp-controller="Quotes" asp-action="ListQuotes" >
-    <div class="form-group">
-        <label class="form-label">Author Name</label>
-        <select name="SearchString" class="form-control" asp-items="ViewBag.AuthorId" value="Filter"></select>
-        <input type="submit" class="btn btn-secondary mt-2" style="background-color:#3b6767" value="Filter" class="btn btn-primary" />
+    <form asp-controller="Quotes" asp-action="ListQuotes" >
+        <div class="form-group">
+            <label class="form-label">Author Name</label>
+            <select name="SearchString" class="form-control" asp-items="ViewBag.AuthorId" value="Filter"></select>
+            <input type="submit" class="btn btn-secondary mt-2" style="background-color:#3b6767" value="Filter" class="btn btn-primary" />
+        </div>
+  </form>
     </div>
-   
-   
-</form>
-</div>
 </div>
 
 <p class="mt-2">

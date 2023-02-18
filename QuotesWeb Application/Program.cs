@@ -21,6 +21,10 @@ builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
 builder.Services.AddHttpClient<IQuoteRepository,QuoteRepository>(x => x.BaseAddress =
   new Uri(builder.Configuration["ServiceURLs:QuoteAPIUrl"]));
 
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
@@ -33,9 +37,12 @@ if (app.Environment.IsDevelopment())
 else
 {
     app.UseExceptionHandler("/Home/Error");
+
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

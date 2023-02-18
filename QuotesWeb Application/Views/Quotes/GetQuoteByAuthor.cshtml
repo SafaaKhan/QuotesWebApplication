@@ -1,0 +1,28 @@
+﻿@model QuoteWebApp_Models.Models.Quote
+
+<div class="row">
+    <div class="col-md-4">
+    <form asp-controller="Quotes" asp-action="GetQuoteByAuthor" >
+        <div class="form-group">
+            <label class="form-label">Author Name</label>
+            <select name="SearchString" class="form-control" asp-items="ViewBag.AuthorId" value="Filter"></select>
+            <input type="submit" class="btn btn-secondary mt-2" style="background-color:#3b6767" value="Filter" class="btn btn-primary" />
+        </div>
+  </form>
+    </div>
+</div>
+
+
+<h4>Quote</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddQuote">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Text" class="form-label"></label>
+                <input asp-for="Text" class="form-control" disabled />
+            </di>
+        </form>
+    </div>
+</div>

@@ -33,6 +33,18 @@ namespace QuotesWeb_Application.Controllers
             return View(listQuotes);
         }
 
+
+        public ActionResult GetQuoteByAuthor(int SearchString = 0, int authorId = 0)
+        {
+            var quote = _quoteRepo.GetQuoteByAuthor(authorId);
+            if (SearchString != 0)
+            {
+                quote = _quoteRepo.GetQuoteByAuthor(SearchString);
+            }
+            ViewData["AuthorId"] = new SelectList(_authorRepo.ListAuthors(), "Id", "Name");
+            return View(quote);
+        }
+
         public async Task<ActionResult> GetRandomQuote()
         {
             //httpClient has been used in the repository
