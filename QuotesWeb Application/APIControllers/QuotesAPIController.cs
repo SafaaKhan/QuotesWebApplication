@@ -25,7 +25,15 @@ namespace QuotesWeb_Application.APIControllers
         [HttpGet("getRandomQuote")]
         public IActionResult GetRandomQuote(int id)
         {
-            return Ok(_quoteRepo.GetRandomQuote()); 
+            try
+            {
+                return Ok(_quoteRepo.GetRandomQuote());
+
+            }
+            catch
+            {
+                return BadRequest("Something error happened");
+            }
         }
 
         // GET: api/quotesAPI/getQuoteByAuthor

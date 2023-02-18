@@ -15,24 +15,24 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
-                <label asp-for="Text" class="control-label"></label>
+                <label asp-for="Text" class="form-label"></label>
                 <input asp-for="Text" class="form-control" />
                 <span asp-validation-for="Text" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="AuthorId" class="control-label"></label>
+                <label asp-for="AuthorId" class="form-label"></label>
                 <select asp-for="AuthorId" class="form-control" asp-items="ViewBag.AuthorId"></select>
                 <span asp-validation-for="AuthorId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" class="btn btn-secondary mt-2" style="background-color:#3b6767" value="Save" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="ListQuotes">Back to List</a>
+    <a asp-action="ListQuotes" class="btn btn-secondary mt-2" >Back to List</a>
 </div>
 
 @section Scripts {

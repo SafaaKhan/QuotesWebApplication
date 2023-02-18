@@ -7,7 +7,7 @@
 <h1>List Authors</h1>
 
 <p>
-    <a asp-action="AddAuthor">Create New</a>
+    <a asp-action="AddAuthor" class="btn btn-success">Add Author</a>
 </p>
 <table class="table">
     <thead>
@@ -32,9 +32,9 @@
                     @Html.DisplayFor(modelItem => item.CreatedAt)
                 </td>
                 <td>
-                    <a asp-controller="Quote" asp-action="ListQuotes" asp-route-authorId="@item.Id">Quotes</a> |
-                    <a asp-action="UpdateAuthor" asp-route-id="@item.Id">Update Author</a> |
-                    <a asp-action="DeleteAuthor" asp-route-id="@item.Id">Delete Author</a>
+                    <a asp-controller="Quotes" class="btn btn-success mt-2"  asp-action="ListQuotes" asp-route-authorId="@item.Id">Quotes</a> |
+                    <a asp-action="UpdateAuthor" class="btn btn-secondary mt-2" style="background-color:#3b6767"  asp-route-id="@item.Id">Update Author</a> |
+                    <a asp-action="DeleteAuthor" class="btn btn-danger mt-2"   asp-route-id="@item.Id">Delete Author</a>
                 </td>
             </tr>
         }

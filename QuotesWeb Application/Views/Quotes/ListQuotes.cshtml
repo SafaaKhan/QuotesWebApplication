@@ -6,18 +6,23 @@
 
 <h1>List Quotes</h1>
 
-<form asp-controller="Quotes" asp-action="ListQuotes">
-    <p>
-        Author Name: <div class="form-group">
-            <select name="SearchString" class="form-control" asp-items="ViewBag.AuthorId"></select>
-        </div>
-        <input type="submit" value="Filter" />
-    </p>
+<div class="row">
+    <div class="col-md-4">
+<form asp-controller="Quotes" asp-action="ListQuotes" >
+    <div class="form-group">
+        <label class="form-label">Author Name</label>
+        <select name="SearchString" class="form-control" asp-items="ViewBag.AuthorId" value="Filter"></select>
+        <input type="submit" class="btn btn-secondary mt-2" style="background-color:#3b6767" value="Filter" class="btn btn-primary" />
+    </div>
+   
+   
 </form>
+</div>
+</div>
 
-<p>
-    <a asp-action="AddQuote">Create New</a>
-    <a asp-action="GetRandomQuote">Get Random Quote </a>
+<p class="mt-2">
+    <a asp-action="AddQuote" class="btn btn-success">Add Quote</a>
+    <a asp-action="GetRandomQuote" class="btn btn-secondary">Get Random Quote </a>
 </p>
 <table class="table">
     <thead>
@@ -42,8 +47,8 @@
                     @Html.DisplayFor(modelItem => item.CreatedAt)
                 </td>
                 <td>
-                    <a asp-action="UpdateQuote" asp-route-id="@item.Id">Update Quote</a> |
-                    <a asp-action="DeleteQuote" asp-route-id="@item.Id">Delete Quote</a>
+                    <a asp-action="UpdateQuote" class="btn btn-secondary" style="background-color:#3b6767" asp-route-id="@item.Id">Update Quote</a> |
+                    <a asp-action="DeleteQuote" class="btn btn-danger"   asp-route-id="@item.Id">Delete Quote</a>
                 </td>
             </tr>
         }
