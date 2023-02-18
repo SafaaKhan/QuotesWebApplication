@@ -1,0 +1,42 @@
+﻿@model IEnumerable<QuoteWebApp_Models.Models.Quote>
+
+@{
+    ViewData["Title"] = "ListQuotes";
+}
+
+<h1>List Quotes</h1>
+
+<p>
+    <a asp-action="AddQuote">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Text)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedAt)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Text)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedAt)
+                </td>
+                <td>
+                    <a asp-action="UpdateAuthor" asp-route-id="@item.Id">Update Author</a> |
+                    <a asp-action="DeleteAuthor" asp-route-id="@item.Id">Delete Author</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

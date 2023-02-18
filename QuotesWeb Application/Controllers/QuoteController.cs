@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using QuoteWebApp_DataAccess.Repositories.IRepository;
 using QuoteWebApp_Models.Models;
 
@@ -8,31 +10,34 @@ namespace QuotesWeb_Application.Controllers
     public class QuoteController : Controller
     {
         private readonly IQuoteRepository _quoteRepo;
+        private readonly IAuthorRepository _authorRepo;
 
-        public QuoteController(IQuoteRepository quoteRepo)
+        public QuoteController(IQuoteRepository quoteRepo, IAuthorRepository authorRepo)
         {
             _quoteRepo = quoteRepo;
+            _authorRepo = authorRepo;
         }
 
-        // GET: QuoteController
-        public ActionResult Index()
+        public ActionResult ListQuotes(int authorId=0)
         {
-            return View();
+            var listQuotes= _quoteRepo.ListQuotes(authorId);
+            return View(listQuotes);
         }
 
-        // GET: QuoteController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
+        //public ActionResult GetRandomQuote()
+        //{
+        //   var quote= _quoteRepo.GetRandomQuote();
+        //   return View(quote);
+        //}
 
-        // GET: QuoteController/Create
+       
         public ActionResult AddQuote()
         {
+           // ViewData["AuthorId"] = new SelectList(_context.Authors, "Id", "Id");
             return View();
         }
 
-        // POST: QuoteController/Create
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult AddQuote(Quote quote)
@@ -40,45 +45,39 @@ namespace QuotesWeb_Application.Controllers
 
             _quoteRepo.AddQuote(quote);
             //viewBage message
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(ListQuotes));
 
         }
 
-        // GET: QuoteController/Edit/5
         public ActionResult UpdateQuote(int id)
         {
             return View();
         }
 
-        // POST: QuoteController/Edit/5
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult UpdateQuote(Quote quote)
         {
-            _quoteRepo.AddQuote(quote);
+            _quoteRepo.UpdateQuote(quote);
             //viewBage message
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(ListQuotes));
         }
 
-        // GET: QuoteController/Delete/5
-        public ActionResult Delete(int id)
+
+        public ActionResult DeleteQuote(int id)
         {
             return View();
         }
 
-        // POST: QuoteController/Delete/5
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult DeleteQuote(Quote quote)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            _quoteRepo.DeleteQuote(quote);
+            //viewBage message
+            return RedirectToAction(nameof(ListQuotes));
         }
     }
 }

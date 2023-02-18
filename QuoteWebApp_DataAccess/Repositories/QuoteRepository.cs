@@ -37,9 +37,10 @@ namespace QuoteWebApp_DataAccess.Repositories
             return _db.Quotes.OrderBy(r=> EF.Functions.Random()).FirstOrDefault();
         }
 
-        public IEnumerable<Quote> ListQuotes()
+        public IEnumerable<Quote> ListQuotes(int autherId)
         {
-            return _db.Quotes;
+           var quptes= autherId==0 ?  _db.Quotes:  _db.Quotes.Where(x => x.AuthorId == autherId);
+            return quptes;
 
         }
 

@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace QuoteWebApp_Models.Models
+namespace QuoteWebApp_Models.Dtos
 {
-    public class Author
+    public class UpdateAuthorDto
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public DateTime CreatedAt { get; set; }=DateTime.Now;
     }
 }

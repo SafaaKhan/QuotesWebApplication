@@ -14,6 +14,6 @@ namespace QuoteWebApp_DataAccess.Repositories.IRepository
         void AddQuote(Quote quote);
         void DeleteQuote(Quote quote);
         void UpdateQuote(Quote quote);
-        IEnumerable<Quote> ListQuotes();
+        IEnumerable<Quote> ListQuotes(int autherId);
     }
 }
